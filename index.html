@@ -1,97 +1,176 @@
 <!DOCTYPE html>
 <html lang="fr" data-bs-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Bibliothèque en ligne (Projet de Développement Web de Olivier Hollebeke
+    </title>
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./css/style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>
-    Bibliothèque en ligne (Projet de Développement Web de Olivier Hollebeke
-  </title>
-  <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
-  <link rel="stylesheet" href="./css/style.css">
-</head>
+  <body>
+    <header>
+      <div class="container mt-3 mb-3">
+        <div
+          class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start"
+        >
+          <a
+            href="/"
+            class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none"
+          >
+            <svg
+              class="bi me-2"
+              width="40"
+              height="32"
+              role="img"
+              aria-label="Bootstrap"
+            >
+              <use xlink:href="#bootstrap" />
+            </svg>
+          </a>
 
-<body>
-  <header>
-    <div class="container mt-3 mb-3">
-      <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-        <a href="/" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none">
-          <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap">
-            <use xlink:href="#bootstrap" />
-          </svg>
-        </a>
+          <h1
+            class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0"
+          >
+            Bibliothèque en ligne
+          </h1>
 
-        <h1 class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-          Bibliothèque en ligne
-        </h1>
-
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Rechercher un livre..." />
+          <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
+            <input
+            id="inputRecherche"
+              type="search"
+              class="form-control form-control-dark text-bg-dark"
+              placeholder="Rechercher un livre ou un auteur..."
+            />
           </form>
 
-        <div class="text-end">
-          <button type="button" class="btn btn-outline-success me-2">
-            Rechercher
-          </button>
+          <div class="text-end">
+            <button id="btnRechercher" type="button" class="btn btn-outline-success me-2">
+              Rechercher
+            </button>
+          </div>
         </div>
       </div>
-    </div>
     </header>
 
-  <div class="container mt-3 border border-light p-2 border-opacity-10 rounded">
-    <legend id="legendAjout" class="col-form-label col-sm-2 pt-0 mb-3">Ajouter un livre</legend>
-    <form id="formAjout">
-      <div class="mb-3">
-        <label for="titre" class="form-label">Titre</label>
-        <input type="text" class="form-control" id="titre" />
+    <div
+      id="listeLivresTrouves"
+      class="container mt-3 border border-light p-2 border-opacity-10 rounded"
+    >
+      <table class="table">
+        <legend class="col-form-label col-sm-2 pt-0 mb-3">
+          Liste des livres trouvés
+        </legend>
+        <thead>
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Année</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbodyRecherche"></tbody>
+      </table>
+      <div>
+        <button
+          type="button"
+          id="annulerRecherche"
+          class="btn btn-outline-danger"
+        >
+          Annuler la recherche
+        </button>
       </div>
-      <div class="mb-3">
-        <label for="auteur" class="form-label">Auteur</label>
-        <input type="text" class="form-control" id="auteur" />
-      </div>
-      <div class="mb-3">
-        <label for="annee" class="form-label">Année</label>
-        <input type="type" class="form-control" id="annee" />
-      </div>
-      <div class="btn-group">
-        <button type="submit" class="btn btn-outline-primary me-2" id="btnSubmit">Ajouter</button>
-        <button type="button" id="resetForm" class="btn btn-outline-danger me-2">Effacer</button>
-        <button type="button" id="annulerModif" class="btn btn-outline-danger">Annuler</button>
-      </div>
-    </form>
-    <div id="alerteDiv" class="alert mt-3" role="alert">
     </div>
-  </div>
 
-  <div id="listeLivres" class="container mt-3 border border-light p-2 border-opacity-10 rounded">
-    <table class="table">
-      <legend class="col-form-label col-sm-2 pt-0 mb-3">Liste des livres
+    <div
+      class="container mt-3 border border-light p-2 border-opacity-10 rounded"
+    >
+      <legend id="legendAjout" class="col-form-label col-sm-2 pt-0 mb-3">
+        Ajouter un livre
       </legend>
-      <thead>
-        <tr>
-          <th scope="col">Titre</th>
-          <th scope="col">Auteur</th>
-          <th scope="col">Année</th>
-          <th scope="col">Actions</th>
-        </tr>
-      </thead>
-      <tbody id="tbody"></tbody>
-    </table>
-    <button id="exportPdf" class="btn btn-outline-success bt-sm">Exporter la liste en PDF</button>
-  </div>
-
-  <footer>
-    <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top container mt-3">
-      <p>&copy; 2025 Hollebeke Olivier. Tous droits réservés.</p>
+      <form id="formAjout">
+        <div class="mb-3">
+          <label for="titre" class="form-label">Titre</label>
+          <input type="text" class="form-control" id="titre" />
+        </div>
+        <div class="mb-3">
+          <label for="auteur" class="form-label">Auteur</label>
+          <input type="text" class="form-control" id="auteur" />
+        </div>
+        <div class="mb-3">
+          <label for="annee" class="form-label">Année</label>
+          <input type="type" class="form-control" id="annee" />
+        </div>
+        <div class="btn-group">
+          <button
+            type="submit"
+            class="btn btn-outline-primary me-2"
+            id="btnSubmit"
+          >
+            Ajouter
+          </button>
+          <button
+            type="button"
+            id="resetForm"
+            class="btn btn-outline-danger me-2"
+          >
+            Effacer
+          </button>
+          <button
+            type="button"
+            id="annulerModif"
+            class="btn btn-outline-danger"
+          >
+            Annuler
+          </button>
+        </div>
+      </form>
+      <div id="alerteDiv" class="alert mt-3" role="alert"></div>
     </div>
-  </footer>
 
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="/node_modules/dexie/dist/dexie.min.js"></script>
-  <script src="./node_modules/jspdf/dist/jspdf.umd.min.js"></script>
-  <script src="/js/db.js"></script>
-  <script src="/js/app.js"></script>
-  <script src="./js/pdf.js"></script>
-</body>
+    <div
+      id="listeLivres"
+      class="container mt-3 border border-light p-2 border-opacity-10 rounded"
+    >
+      <table class="table">
+        <legend class="col-form-label col-sm-2 pt-0 mb-3">
+          Liste des livres
+        </legend>
+        <thead>
+          <tr>
+            <th scope="col">Titre</th>
+            <th scope="col">Auteur</th>
+            <th scope="col">Année</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody id="tbody"></tbody>
+      </table>
+      <button id="exportPdf" class="btn btn-outline-success bt-sm">
+        Exporter la liste en PDF
+      </button>
+    </div>
 
+    <footer>
+      <div
+        class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top container mt-3"
+      >
+        <p>&copy; 2025 Hollebeke Olivier. Tous droits réservés.</p>
+      </div>
+    </footer>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="/node_modules/dexie/dist/dexie.min.js"></script>
+    <script src="./node_modules/jspdf/dist/jspdf.umd.min.js"></script>
+    <script src="/js/db.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="./js/pdf.js"></script>
+    <script src="./js/search.js"></script>
+    t
+  </body>
 </html>

@@ -1,17 +1,23 @@
 #alerteDiv {
-    display: none;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
+  display: none;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
 #alerteDiv.show {
-    display: block;
-    opacity: 1;
+  display: block;
+  opacity: 1;
 }
 
 #alerteDiv.hide {
-    opacity: 0;
+  opacity: 0;
 }
 #annulerModif {
-    display: none;
+  display: none;
 }
+#listeLivresTrouves {
+  display: none;
+}
+/* input[type="search"]::placeholder {
+  font-size: 0.7rem; /* Ajustez cette valeur selon vos préférences */
+} */
