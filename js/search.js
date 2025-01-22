@@ -33,8 +33,8 @@ async function rechercherLivresDepuisAPI(motCle) {
 // Fonction d'affichage des résultats dans le tableau des livres trouvés
 async function afficherLivresTrouves(motCle) {
   listeLivresTrouves.style.display = "block";
-   // Affichage du spinner pendant le chargement des résultats
-   tbodyRecherche.innerHTML = `
+  // Affichage du spinner pendant le chargement des résultats
+  tbodyRecherche.innerHTML = `
    <tr>
      <td colspan="4" class="text-center">
        <div class="spinner-border" role="status">
@@ -69,8 +69,8 @@ async function afficherLivresTrouves(motCle) {
   `;
 
     // Attacher l'événement "Ajouter" avec une fonction
-    row.querySelector("button").addEventListener("click", () => {
-      ajouterLivreDB(livre.titre, livre.auteur, livre.annee);
+    row.querySelector("button").addEventListener("click", async () => {
+        ajouterLivreDB(livre.titre, livre.auteur, livre.annee);
     });
 
     tbodyRecherche.appendChild(row); // Ajouter la ligne au tableau
@@ -80,7 +80,7 @@ async function afficherLivresTrouves(motCle) {
 // Ajouter un livre à la base de données IndexedDB
 async function ajouterLivreDB(titre, auteur, annee) {
   await db.ajouterLivre({ titre, auteur, annee });
-  app.alerte(alerteDiv, "light", `Livre ${titre} ajouté avec succès!`);
+  app.alerte(alerteDiv, "success", `Livre ${titre} ajouté avec succès!`);
   inputRecherche.value = "";
   listeLivresTrouves.style.display = "none";
   afficherLivres();
