@@ -217,7 +217,7 @@ function isDigitAndlogicYear(value) {
   );
 }
 
-// Vérifier l'état du switch et appliquer le mode correspondant
+// Dark Mode & Light Mode
 switchMode.addEventListener("change", function () {
   if (switchMode.checked) {
     // Si le switch est activé, mettre en mode sombre
