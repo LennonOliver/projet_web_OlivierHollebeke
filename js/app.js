@@ -11,6 +11,9 @@ const btnResetForm = document.querySelector("#resetForm");
 const alerteDiv = document.querySelector("#alerteDiv");
 const listeLivres = document.querySelector("#listeLivres");
 const btnAnnulerModif = document.querySelector("#annulerModif");
+const switchMode = document.querySelector("#flexSwitchCheckChecked");
+const htmlElement = document.documentElement;
+const labelSwitchMode = document.querySelector("#labelSwitchMode");
 
 //Soumettre le formulaire
 btnSubmit.addEventListener("click", async (event) => {
@@ -69,7 +72,11 @@ btnSubmit.addEventListener("click", async (event) => {
     legend.textContent = "Ajouter un livre";
   }
 
-  app.alerte(alerteDiv, "success", `Livre ${titre.value} ${ajoutOuModifMessage} avec succès`);
+  app.alerte(
+    alerteDiv,
+    "success",
+    `Livre ${titre.value} ${ajoutOuModifMessage} avec succès`
+  );
 
   //réinitialiser le formulaire
   formajout.reset();
@@ -209,5 +216,19 @@ function isDigitAndlogicYear(value) {
     value
   );
 }
+
+// Vérifier l'état du switch et appliquer le mode correspondant
+switchMode.addEventListener("change", function () {
+  if (switchMode.checked) {
+    // Si le switch est activé, mettre en mode sombre
+    htmlElement.setAttribute("data-bs-theme", "dark");
+    labelSwitchMode.textContent = "Dark Mode";
+  } else {
+    // Si le switch est désactivé, mettre en mode clair
+    htmlElement.setAttribute("data-bs-theme", "light");
+    inputRecherche.classList.remove("text-bg-dark");
+    labelSwitchMode.textContent = "Light Mode";
+  }
+});
 
 afficherLivres();

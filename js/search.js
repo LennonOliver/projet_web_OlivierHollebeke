@@ -68,7 +68,7 @@ async function afficherLivresTrouves(motCle) {
     </td>
   `;
 
-    // Attacher l'événement "Ajouter" avec une fonction anonyme
+    // Attacher l'événement "Ajouter" avec une fonction
     row.querySelector("button").addEventListener("click", () => {
       ajouterLivreDB(livre.titre, livre.auteur, livre.annee);
     });
@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // Permettre la recherche en appuyant sur "Entrée"
+  // Permettre la recherche en appuyant sur Enter
   inputRecherche.addEventListener("keypress", (event) => {
     if (event.key === "Enter") {
       event.preventDefault();
