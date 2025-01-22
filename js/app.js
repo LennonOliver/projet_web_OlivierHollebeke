@@ -7,13 +7,32 @@ const annee = document.querySelector("#annee");
 const btnSubmit = document.querySelector("#btnSubmit");
 const formajout = document.querySelector("#formAjout");
 const legend = document.querySelector("#legendAjout");
-const errorMessage = document.querySelector("#error-message");
+const btnResetForm = document.querySelector("#resetForm");
+const alerteDiv = document.querySelector("#alerteDiv");
 
 //Soumettre le formulaire
 btnSubmit.addEventListener("click", async (event) => {
     //Empêcher le rechargement de la page
     event.preventDefault();
 
+    //Vérifier si les champs sont remplis
+    const champsManquants = [];
+    //Si le champ n'est pas rempli le pousser dans le tableau
+    if (titre.value.trim() === "") champsManquants.push("Titre");
+    if (auteur.value.trim() === "") champsManquants.push("Auteur");
+    if (annee.value.trim() === "") champsManquants.push("Année");
+
+    //Si un champ n'est pas rempli afficher le message et donner les champs à remplir
+    if (champsManquants.length > 0) {
+        alerteDiv.textContent = `Veuillez remplir le(s) champ(s) suivant(s) : ${champsManquants.join(", ")}!`;
+        app.alerte(alerteDiv, "light");
+        return;
+    }
+
+    //Vider la div d'alerte si une alerte a été faite précédemment
+    alerteDiv.textContent = "";
+
+    //Si le bouton est ajouter
     if (btnSubmit.textContent === "Ajouter") {
         //Ajout du livre à la db
         await db.ajouterLivre({
@@ -21,22 +40,28 @@ btnSubmit.addEventListener("click", async (event) => {
             auteur: auteur.value,
             annee: annee.value,
         });
-    } else if (btnSubmit.textContent === "Modifier") {
-        console.log("Modification en cours pour le livre avec ID:", livreEnModif);
+        alerteDiv.textContent = "Livre ajouté avec succès !";
+    } //Si le bouton est modifier
+    else if (btnSubmit.textContent === "Modifier") {
         await db.modifierLivre(livreEnModif, {
             titre: titre.value,
             auteur: auteur.value,
             annee: annee.value,
         });
+        alerteDiv.textContent = `Livre ${titre.value} modifié avec succès !`;
         btnSubmit.textContent = "Ajouter";
         legend.textContent = "Ajouter un livre"
     }
+
+    app.alerte(alerteDiv, "success");
 
     //réinitialiser le formulaire
     formajout.reset();
 
     //Rafraîchir l'affichage
     afficherLivres();
+
+    titre.focus();
 });
 
 const afficherLivres = () => {
@@ -64,6 +89,8 @@ const afficherLivres = () => {
             btnSupprimer.classList.add("btn", "btn-outline-danger", "btn-sm", "me-2");
             btnSupprimer.addEventListener("click", async () => {
                 await db.supprimerLivre(livre.id);
+                alerteDiv.textContent = `Livre ${livre.titre} supprimé avec succès !`;
+                app.alerte(alerteDiv, "success");
                 afficherLivres();
             });
 
@@ -93,10 +120,37 @@ app.formModifier = (livre) => {
     livreEnModif = livre.id;
     btnSubmit.textContent = "Modifier";
     legend.textContent = `Modifier le livre ${titre.value}`
-    console.log(livreEnModif);
+    titre.focus();
 };
 
+btnResetForm.addEventListener('click', () => {
+    formajout.reset();
+})
 
+app.alerte = (alerte, type) => {
 
+    alerte.classList.remove("alert-light", "alert-warning", "alert-danger", "alert-success");
+
+    alerte.classList.add(`alert-${type}`)
+
+    // Afficher avec effet de fondu
+    alerte.style.display = "block";
+    setTimeout(() => {
+        alerte.classList.add("show");
+    }, 10);
+
+    // Masquer avec effet de fondu après 3 secondes
+    setTimeout(() => {
+        alerte.classList.remove("show");
+        alerte.classList.add("hide");
+
+        // Attendre la fin de l'animation avant de cacher complètement
+        setTimeout(() => {
+            alerte.style.display = "none";
+            // Réinitialiser pour la prochaine utilisation
+            alerte.classList.remove("hide");
+        }, 500);
+    }, 3000);
+}
 
 afficherLivres()

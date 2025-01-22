@@ -8,7 +8,8 @@
     Bibliothèque en ligne (Projet de Développement Web de Olivier Hollebeke
   </title>
   <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
-  </head>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
 
 <body>
   <header>
@@ -33,9 +34,9 @@
             Rechercher
           </button>
         </div>
-        </div>
-        </div>
-        </header>
+      </div>
+      </div>
+      </header>
 
   <div class="container mt-3 border border-light p-2 border-opacity-10 rounded">
     <legend id="legendAjout" class="col-form-label col-sm-2 pt-0 mb-3">Ajouter un livre</legend>
@@ -43,18 +44,21 @@
       <div class="mb-3">
         <label for="titre" class="form-label">Titre</label>
         <input type="text" class="form-control" id="titre" />
-        </div>
-        <div class="mb-3">
-          <label for="auteur" class="form-label">Auteur</label>
-          <input type="text" class="form-control" id="auteur" />
-        </div>
-        <div class="mb-3">
-          <label for="annee" class="form-label">Année</label>
+      </div>
+      <div class="mb-3">
+        <label for="auteur" class="form-label">Auteur</label>
+        <input type="text" class="form-control" id="auteur" />
+      </div>
+      <div class="mb-3">
+        <label for="annee" class="form-label">Année</label>
         <input type="text" class="form-control" id="annee" />
-        </div>
+      </div>
 
       <button type="submit" class="btn btn-outline-primary" id="btnSubmit">Ajouter</button>
-      </form>
+      <button type="button" id="resetForm" class="btn btn-outline-danger">Effacer</button>
+    </form>
+    <div id="alerteDiv" class="alert mt-3" role="alert">
+    </div>
   </div>
 
   <div class="container mt-3 border border-light p-2 border-opacity-10 rounded">
@@ -69,19 +73,19 @@
         </tr>
       </thead>
       <tbody id="tbody"></tbody>
-      </table>
-      </div>
+    </table>
+    </div>
 
   <footer>
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top container mt-3">
       <p>&copy; 2025 Hollebeke Olivier. Tous droits réservés.</p>
     </div>
-    </footer>
+  </footer>
 
   <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/node_modules/dexie/dist/dexie.min.js"></script>
   <script src="/js/db.js"></script>
   <script src="/js/app.js"></script>
-  </body>
+</body>
 
 </html>
