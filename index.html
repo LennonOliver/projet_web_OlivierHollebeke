@@ -35,8 +35,8 @@
           </button>
         </div>
       </div>
-      </div>
-      </header>
+    </div>
+    </header>
 
   <div class="container mt-3 border border-light p-2 border-opacity-10 rounded">
     <legend id="legendAjout" class="col-form-label col-sm-2 pt-0 mb-3">Ajouter un livre</legend>
@@ -53,17 +53,20 @@
         <label for="annee" class="form-label">Année</label>
         <input type="text" class="form-control" id="annee" />
       </div>
-
-      <button type="submit" class="btn btn-outline-primary" id="btnSubmit">Ajouter</button>
-      <button type="button" id="resetForm" class="btn btn-outline-danger">Effacer</button>
+      <div class="btn-group">
+        <button type="submit" class="btn btn-outline-primary me-2" id="btnSubmit">Ajouter</button>
+        <button type="button" id="resetForm" class="btn btn-outline-danger me-2">Effacer</button>
+        <button type="button" id="annulerModif" class="btn btn-outline-danger">Annuler</button>
+      </div>
     </form>
     <div id="alerteDiv" class="alert mt-3" role="alert">
     </div>
   </div>
 
-  <div class="container mt-3 border border-light p-2 border-opacity-10 rounded">
+  <div id="listeLivres" class="container mt-3 border border-light p-2 border-opacity-10 rounded">
     <table class="table">
-      <legend class="col-form-label col-sm-2 pt-0 mb-3">Liste des livres</legend>
+      <legend class="col-form-label col-sm-2 pt-0 mb-3">Liste des livres
+      </legend>
       <thead>
         <tr>
           <th scope="col">Titre</th>
@@ -74,7 +77,8 @@
       </thead>
       <tbody id="tbody"></tbody>
     </table>
-    </div>
+    <button id="exportPdf" class="btn btn-outline-success bt-sm">Exporter la liste en PDF</button>
+  </div>
 
   <footer>
     <div class="d-flex flex-column flex-sm-row justify-content-between py-4 my-4 border-top container mt-3">

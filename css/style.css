@@ -12,3 +12,6 @@
 #alerteDiv.hide {
     opacity: 0;
 }
+#annulerModif {
+    display: none;
+}

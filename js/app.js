@@ -9,6 +9,8 @@ const formajout = document.querySelector("#formAjout");
 const legend = document.querySelector("#legendAjout");
 const btnResetForm = document.querySelector("#resetForm");
 const alerteDiv = document.querySelector("#alerteDiv");
+const listeLivres = document.querySelector("#listeLivres");
+const btnAnnulerModif = document.querySelector("#annulerModif");
 
 //Soumettre le formulaire
 btnSubmit.addEventListener("click", async (event) => {
@@ -24,13 +26,9 @@ btnSubmit.addEventListener("click", async (event) => {
 
     //Si un champ n'est pas rempli afficher le message et donner les champs à remplir
     if (champsManquants.length > 0) {
-        alerteDiv.textContent = `Veuillez remplir le(s) champ(s) suivant(s) : ${champsManquants.join(", ")}!`;
-        app.alerte(alerteDiv, "light");
+        app.alerte(alerteDiv, "light", `Veuillez remplir le(s) champ(s) suivant(s) : ${champsManquants.join(", ")}!`);
         return;
     }
-
-    //Vider la div d'alerte si une alerte a été faite précédemment
-    alerteDiv.textContent = "";
 
     //Si le bouton est ajouter
     if (btnSubmit.textContent === "Ajouter") {
@@ -40,7 +38,7 @@ btnSubmit.addEventListener("click", async (event) => {
             auteur: auteur.value,
             annee: annee.value,
         });
-        alerteDiv.textContent = "Livre ajouté avec succès !";
+        app.alerte(alerteDiv, "success", `Livre ${titre.value} ajouté avec succès`)
     } //Si le bouton est modifier
     else if (btnSubmit.textContent === "Modifier") {
         await db.modifierLivre(livreEnModif, {
@@ -48,12 +46,10 @@ btnSubmit.addEventListener("click", async (event) => {
             auteur: auteur.value,
             annee: annee.value,
         });
-        alerteDiv.textContent = `Livre ${titre.value} modifié avec succès !`;
+        app.alerte(alerteDiv, "success", `Livre ${titre.value} modifié avec succès`)
         btnSubmit.textContent = "Ajouter";
         legend.textContent = "Ajouter un livre"
     }
-
-    app.alerte(alerteDiv, "success");
 
     //réinitialiser le formulaire
     formajout.reset();
@@ -62,55 +58,67 @@ btnSubmit.addEventListener("click", async (event) => {
     afficherLivres();
 
     titre.focus();
+
+    btnAnnulerModif.style.display = "none"
 });
 
-const afficherLivres = () => {
-    //Récupérer tous les livres
-    db.getLivres().then(livres => {
-        const tbody = document.querySelector('#tbody');
-        //Vider le tableau
-        tbody.innerHTML = "";
-        livres.forEach(livre => {
-            const tr = document.createElement("tr");
+const afficherLivres = async () => {
+    const livres = await db.getLivres();
+    if (livres.length > 0) {
+        listeLivres.style.display = "block";
+        //Récupérer tous les livres
+        db.getLivres().then(livres => {
+            const tbody = document.querySelector('#tbody');
+            //Vider le tableau
+            tbody.innerHTML = "";
+            livres.forEach(livre => {
+                const tr = document.createElement("tr");
 
-            const td1 = document.createElement("td");
-            const td2 = document.createElement("td");
-            const td3 = document.createElement("td");
-            const td4 = document.createElement("td");
+                const td1 = document.createElement("td");
+                const td2 = document.createElement("td");
+                const td3 = document.createElement("td");
+                const td4 = document.createElement("td");
 
-            const btnSupprimer = document.createElement("button");
-            const btnModifier = document.createElement("button");
+                const btnSupprimer = document.createElement("button");
+                const btnModifier = document.createElement("button");
 
-            td1.textContent = `${livre.titre}`;
-            td2.textContent = `${livre.auteur}`;
-            td3.textContent = `${livre.annee}`;
+                td1.textContent = `${livre.titre}`;
+                td2.textContent = `${livre.auteur}`;
+                td3.textContent = `${livre.annee}`;
 
-            btnSupprimer.textContent = `Supprimer`;
-            btnSupprimer.classList.add("btn", "btn-outline-danger", "btn-sm", "me-2");
-            btnSupprimer.addEventListener("click", async () => {
-                await db.supprimerLivre(livre.id);
-                alerteDiv.textContent = `Livre ${livre.titre} supprimé avec succès !`;
-                app.alerte(alerteDiv, "success");
-                afficherLivres();
+                btnSupprimer.textContent = `Supprimer`;
+                btnSupprimer.classList.add("btn", "btn-outline-danger", "btn-sm", "me-2");
+                btnSupprimer.addEventListener("click", async () => {
+                    await db.supprimerLivre(livre.id);
+                    app.alerte(alerteDiv, "success", `Livre ${livre.titre} supprimé avec succès !`);
+                    afficherLivres();
+                    btnSubmit.textContent = "Ajouter";
+                    legend.textContent = "Ajouter un livre";
+                    btnAnnulerModif.style.display = "none"
+                    formajout.reset();
+                });
+
+                btnModifier.textContent = `Modifier`;
+                btnModifier.classList.add("btn", "btn-outline-warning", "btn-sm");
+                btnModifier.addEventListener("click", async () => {
+                    await app.formModifier(livre);
+                });
+
+                td4.appendChild(btnSupprimer);
+                td4.appendChild(btnModifier);
+
+                tr.appendChild(td1)
+                tr.appendChild(td2)
+                tr.appendChild(td3)
+                tr.appendChild(td4)
+
+                tbody.appendChild(tr);
             });
+        })
+    } else {
+        listeLivres.style.display = "none";
+    }
 
-            btnModifier.textContent = `Modifier`;
-            btnModifier.classList.add("btn", "btn-outline-warning", "btn-sm");
-            btnModifier.addEventListener("click", async () => {
-                await app.formModifier(livre);
-            });
-
-            td4.appendChild(btnSupprimer);
-            td4.appendChild(btnModifier);
-
-            tr.appendChild(td1)
-            tr.appendChild(td2)
-            tr.appendChild(td3)
-            tr.appendChild(td4)
-
-            tbody.appendChild(tr);
-        });
-    })
 };
 
 app.formModifier = (livre) => {
@@ -121,17 +129,28 @@ app.formModifier = (livre) => {
     btnSubmit.textContent = "Modifier";
     legend.textContent = `Modifier le livre ${titre.value}`
     titre.focus();
+    btnAnnulerModif.style.display = "block";
 };
 
 btnResetForm.addEventListener('click', () => {
     formajout.reset();
 })
 
-app.alerte = (alerte, type) => {
+btnAnnulerModif.addEventListener('click', () => {
+    formajout.reset();
+    legend.textContent = "Ajouter un livre"
+    btnSubmit.textContent = "Ajouter"
+    btnAnnulerModif.style.display = "none"
+})
+
+app.alerte = (alerte, type = "light", message) => {
 
     alerte.classList.remove("alert-light", "alert-warning", "alert-danger", "alert-success");
 
     alerte.classList.add(`alert-${type}`)
+
+    alerte.textContent = "";
+    alerte.textContent = `${message}`;
 
     // Afficher avec effet de fondu
     alerte.style.display = "block";
