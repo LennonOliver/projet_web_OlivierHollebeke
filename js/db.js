@@ -19,6 +19,7 @@ db.init = () => {
 //Ajouter un livre
 db.ajouterLivre = (livre) => {
   db.instance.livres.add(livre);
+  console.log(livre);
 };
 
 //Récupérer tous les livres

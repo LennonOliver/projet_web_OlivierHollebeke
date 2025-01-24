@@ -48,20 +48,19 @@ btnSubmit.addEventListener("click", async (event) => {
     );
     return;
   }
-
   let ajoutOuModifMessage = "";
-
   //Si le bouton est ajouter
-  if (btnSubmit.textContent === "Ajouter") {
+  if (btnSubmit.textContent.trim() === "Ajouter") {
     //Ajout du livre à la db
     await db.ajouterLivre({
       titre: titre.value,
       auteur: auteur.value,
       annee: annee.value,
     });
+    console.log(btnSubmit.textContent)
     ajoutOuModifMessage = "ajouté";
   } //Si le bouton est modifier
-  else if (btnSubmit.textContent === "Modifier") {
+  else if (btnSubmit.textContent.trim() === "Modifier") {
     await db.modifierLivre(livreEnModif, {
       titre: titre.value,
       auteur: auteur.value,

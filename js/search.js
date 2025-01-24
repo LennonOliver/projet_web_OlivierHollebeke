@@ -10,7 +10,7 @@ async function rechercherLivresDepuisAPI(motCle) {
     const response = await fetch(
       `https://openlibrary.org/search.json?q=${encodeURIComponent(
         motCle
-      )}&limit=10`
+      )}&limit=20&lang=fre`
     );
     const data = await response.json();
 
@@ -70,7 +70,7 @@ async function afficherLivresTrouves(motCle) {
 
     // Attacher l'événement "Ajouter" avec une fonction
     row.querySelector("button").addEventListener("click", async () => {
-        ajouterLivreDB(livre.titre, livre.auteur, livre.annee);
+      ajouterLivreDB(livre.titre, livre.auteur, livre.annee);
     });
 
     tbodyRecherche.appendChild(row); // Ajouter la ligne au tableau
