@@ -62,7 +62,7 @@ async function afficherLivresTrouves(motCle) {
     <td>${livre.auteur}</td>
     <td>${livre.annee}</td>
     <td>
-      <button class="btn btn-outline-primary btn-sm">
+      <button class="btn btn-primary btn-sm">
         Ajouter
       </button>
     </td>
@@ -94,6 +94,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const terme = inputRecherche.value.trim();
     if (terme !== "") {
       afficherLivresTrouves(terme); // Afficher les résultats de la recherche
+    } else {
+      app.alerte(alerteDiv, "light", "Veuillez remplir le champ de recherche !")
     }
   });
 

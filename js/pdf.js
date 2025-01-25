@@ -23,15 +23,33 @@ btnPdf.addEventListener("click", async () => {
 
   yPos += 10; // Ajustement de la position verticale
 
+  // Définition des largeurs maximales des colonnes
+  const maxWidthTitre = 60;
+  const maxWidthAuteur = 60;
+
   // Remplir le PDF avec les livres
-  livres.forEach((livre, index) => {
-    doc.text(livre.titre, 10, yPos);
-    doc.text(livre.auteur, 80, yPos);
+  livres.forEach((livre) => {
+    // Gestion du texte avec retour à la ligne si nécessaire
+    let titre = doc.splitTextToSize(livre.titre, maxWidthTitre);
+    let auteur = doc.splitTextToSize(livre.auteur, maxWidthAuteur);
+
+    // Ajouter chaque ligne de titre
+    doc.text(titre, 10, yPos);
+    doc.text(auteur, 80, yPos);
     doc.text(livre.annee.toString(), 150, yPos);
-    yPos += 10;
+
+    // Ajuster la position verticale selon le nombre de lignes du titre ou de l'auteur
+    yPos += Math.max(titre.length, auteur.length) * 7; // 7 px par ligne
+
+    // Éviter de sortir de la page
+    if (yPos > 280) {
+      doc.addPage();
+      yPos = 20;
+    }
   });
 
   // Sauvegarder le PDF
   doc.save("bibliotheque.pdf");
 });
+
 

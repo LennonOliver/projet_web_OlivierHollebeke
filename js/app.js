@@ -115,7 +115,7 @@ const afficherLivres = async () => {
         btnSupprimer.textContent = `Supprimer`;
         btnSupprimer.classList.add(
           "btn",
-          "btn-outline-danger",
+          "btn-danger",
           "btn-sm",
           "me-2"
         );
@@ -134,7 +134,7 @@ const afficherLivres = async () => {
         });
 
         btnModifier.textContent = `Modifier`;
-        btnModifier.classList.add("btn", "btn-outline-warning", "btn-sm");
+        btnModifier.classList.add("btn", "btn-warning", "btn-sm");
         btnModifier.addEventListener("click", async () => {
           await app.formModifier(livre);
         });
@@ -221,12 +221,12 @@ switchMode.addEventListener("change", function () {
   if (switchMode.checked) {
     // Si le switch est activé, mettre en mode sombre
     htmlElement.setAttribute("data-bs-theme", "dark");
-    labelSwitchMode.textContent = "Dark Mode";
+    labelSwitchMode.textContent = "Mode Sombre";
   } else {
     // Si le switch est désactivé, mettre en mode clair
     htmlElement.setAttribute("data-bs-theme", "light");
     inputRecherche.classList.remove("text-bg-dark");
-    labelSwitchMode.textContent = "Light Mode";
+    labelSwitchMode.textContent = "Mode Clair";
   }
 });
 
