@@ -14,7 +14,32 @@
     <link rel="stylesheet" href="./css/style.css" />
   </head>
 
-  <body>
+  <div class="modal fade" id="modalOuverture" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Bibliothèque en ligne</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>Bienvenue ! Voici un aperçu de ce que vous pouvez faire :</p>
+          <ul>
+            <li><strong>Recherche de livres</strong> : Vous pouvez rechercher des livres directement sur <a href="https://openlibrary.org/" target="_blank">Open Library</a>.</li>
+            <li><strong>Ajouter des livres à votre bibliothèque</strong> : Une fois le livre trouvé, vous pouvez l'ajouter à votre bibliothèque en ligne pour y accéder à tout moment.</li>
+            <li><strong>Ajout manuel</strong> : Si le livre que vous cherchez n'existe pas dans Open Library, vous pouvez l'ajouter manuellement à votre collection.</li>
+            <li><strong>Modification et suppression</strong> : Vous avez la possibilité de modifier ou supprimer les livres de votre bibliothèque à votre guise, pour garder votre collection à jour.</li>
+          </ul>
+          <p>Profitez pleinement de votre expérience de lecture avec notre application !</p>
+        </div>
+        <div class="modal-footer d-flex justify-content-end">
+          <button type="button" class="btn btn-primary" data-bs-dismiss="modal">C'est compris !</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+
+
     <header>
       <div class="container mt-3 mb-3">
         <div
@@ -172,6 +197,7 @@
 
     <!-- <script src="/node_modules/dexie/dist/dexie.min.js"></script>
     <script src="./node_modules/jspdf/dist/jspdf.umd.min.js"></script> -->
+    <script src="./vendor/bootstrap.bundle.min.js"></script>
     <script src="./vendor/dexie.min.js"></script>
     <script src="./vendor/jspdf.umd.min.js"></script>
     <script src="/js/db.js"></script>

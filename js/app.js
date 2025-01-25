@@ -230,4 +230,10 @@ switchMode.addEventListener("change", function () {
   }
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+  const modalOuverture = new bootstrap.Modal(document.getElementById('modalOuverture'));
+  modalOuverture.show();
+});
+
+
 afficherLivres();
