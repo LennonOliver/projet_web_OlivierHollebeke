@@ -216,7 +216,7 @@ function isDigitAndlogicYear(value) {
   );
 }
 
-// Dark Mode & Light Mode
+// Mode Sombre et clair
 switchMode.addEventListener("change", function () {
   if (switchMode.checked) {
     // Si le switch est activé, mettre en mode sombre
