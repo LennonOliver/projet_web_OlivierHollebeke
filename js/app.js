@@ -14,6 +14,10 @@ const btnAnnulerModif = document.querySelector("#annulerModif");
 const switchMode = document.querySelector("#flexSwitchCheckChecked");
 const htmlElement = document.documentElement;
 const labelSwitchMode = document.querySelector("#labelSwitchMode");
+const modalOuverture = new bootstrap.Modal(document.getElementById('modalOuverture'));
+const helpBtn = document.querySelector('#helpBtn');
+const popUpSound = new Audio('../audio/multiPop.mp3');
+const allButtons = document.querySelectorAll('button');
 
 //Soumettre le formulaire
 btnSubmit.addEventListener("click", async (event) => {
@@ -230,12 +234,18 @@ switchMode.addEventListener("change", function () {
   }
 });
 
-document.addEventListener('DOMContentLoaded', function() {
-  const modalOuverture = new bootstrap.Modal(document.getElementById('modalOuverture'));
+//Popup sur demande
+helpBtn.addEventListener('click', () => {
   modalOuverture.show();
-
-  //AJOUTER UN SON
+  popUpSound.play();
 });
+
+//Son des boutons
+// allButtons.forEach(bouton => {
+//   bouton.addEventListener('click', () => {
+//     popUpSound.play();
+//   });
+// });
 
 
 afficherLivres();
