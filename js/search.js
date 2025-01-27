@@ -5,7 +5,8 @@ const inputRecherche = document.querySelector("#inputRecherche");
 const btnRechercher = document.querySelector("#btnRechercher");
 
 // Rechercher des livres depuis l'API Open Library
-async function rechercherLivresDepuisAPI(motCle) {
+
+rechercherLivresDepuisAPI = async (motCle) => {
   try {
     const response = await fetch(
       `https://openlibrary.org/search.json?q=${encodeURIComponent(
@@ -31,7 +32,8 @@ async function rechercherLivresDepuisAPI(motCle) {
 }
 
 // Fonction d'affichage des résultats dans le tableau des livres trouvés
-async function afficherLivresTrouves(motCle) {
+
+afficherLivresTrouves =  async (motCle) => {
   listeLivresTrouves.style.display = "block";
   // Affichage du spinner pendant le chargement des résultats
   tbodyRecherche.innerHTML = `
@@ -78,7 +80,8 @@ async function afficherLivresTrouves(motCle) {
 }
 
 // Ajouter un livre à la base de données IndexedDB
-async function ajouterLivreDB(titre, auteur, annee) {
+
+ajouterLivreDB = async(titre, auteur, annee) => {
   await db.ajouterLivre({ titre, auteur, annee });
   app.alerte(alerteDiv, "success", `Livre ${titre} ajouté avec succès!`);
   inputRecherche.value = "";
