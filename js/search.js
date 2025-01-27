@@ -83,7 +83,7 @@ afficherLivresTrouves =  async (motCle) => {
 
 ajouterLivreDB = async(titre, auteur, annee) => {
   await db.ajouterLivre({ titre, auteur, annee });
-  app.alerte(alerteDiv, "success", `Livre ${titre} ajouté avec succès!`);
+  alerte(alerteDiv, "success", `Livre ${titre} ajouté avec succès!`);
   inputRecherche.value = "";
   listeLivresTrouves.style.display = "none";
   afficherLivres();
@@ -98,7 +98,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (terme !== "") {
       afficherLivresTrouves(terme); // Afficher les résultats de la recherche
     } else {
-      app.alerte(alerteDiv, "light", "Veuillez remplir le champ de recherche !")
+      alerte(alerteDiv, "light", "Veuillez remplir le champ de recherche !")
     }
   });
 
