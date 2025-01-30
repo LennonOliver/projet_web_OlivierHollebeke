@@ -19,6 +19,9 @@ const helpBtn = document.querySelector('#helpBtn');
 const popUpSound = new Audio('../audio/multiPop.mp3');
 const allButtons = document.querySelectorAll('button');
 
+const btnAah = document.querySelector('#btnAah');
+const planktonSound = new Audio('../audio/PlanktonSound.mp3');
+
 //Soumettre le formulaire
 btnSubmit.addEventListener("click", async (event) => {
   //Empêcher le rechargement de la page
@@ -180,6 +183,10 @@ btnAnnulerModif.addEventListener("click", () => {
   btnSubmit.textContent = "Ajouter";
   btnAnnulerModif.style.display = "none";
 });
+
+btnAah.addEventListener('click', () => {
+  planktonSound.play();
+})
 
 
 
