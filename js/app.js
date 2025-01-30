@@ -184,10 +184,6 @@ btnAnnulerModif.addEventListener("click", () => {
   btnAnnulerModif.style.display = "none";
 });
 
-btnAah.addEventListener('click', () => {
-  planktonSound.play();
-})
-
 
 
 afficherLivres();

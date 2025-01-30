@@ -58,3 +58,7 @@ alerte = (alerte, type = "light", message) => {
     }, 500);
   }, 3000);
 };
+
+btnAah.addEventListener('click', () => {
+  planktonSound.play();
+})
